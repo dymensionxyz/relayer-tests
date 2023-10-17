@@ -22,8 +22,20 @@ import (
 //
 // The canonical set of test chains are defined in the interchaintest repository.
 func interchaintestConformance(t *testing.T, rf interchaintest.RelayerFactory) {
+
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
-		{Name: "gaia", Version: "v7.0.1", ChainConfig: ibc.ChainConfig{ChainID: "cosmoshub-1004"}},
+		{Name: "dymension", Version: "v7.0.1", ChainConfig: ibc.ChainConfig{
+			Type:           "cosmos",
+			ChainID:        "froopyland_100-1",
+			Images:         nil,
+			Bin:            "dymd",
+			Bech32Prefix:   "dym",
+			Denom:          "udym",
+			CoinType:       "60",
+			GasPrices:      "0udym",
+			GasAdjustment:  0,
+			TrustingPeriod: "168h0m0s",
+		}},
 		{Name: "osmosis", Version: "v7.2.0", ChainConfig: ibc.ChainConfig{ChainID: "osmosis-1001"}},
 	})
 	conformance.Test(
