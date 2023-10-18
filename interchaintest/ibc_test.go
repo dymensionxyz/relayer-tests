@@ -24,10 +24,10 @@ import (
 func interchaintestConformance(t *testing.T, rf interchaintest.RelayerFactory) {
 
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
-		{Name: "dymension", Version: "v7.0.1", ChainConfig: ibc.ChainConfig{
+		{Name: "dymension", Version: "latest", ChainConfig: ibc.ChainConfig{
 			Type:           "cosmos",
 			ChainID:        "froopyland_100-1",
-			Images:         []ibc.DockerImage{{Repository: "dymension", Version: "latest"}},
+			Images:         []ibc.DockerImage{{Repository: "dymension"}},
 			Bin:            "dymd",
 			Bech32Prefix:   "dym",
 			Denom:          "udym",
