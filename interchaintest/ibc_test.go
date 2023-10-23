@@ -22,21 +22,24 @@ import (
 //
 // The canonical set of test chains are defined in the interchaintest repository.
 func interchaintestConformance(t *testing.T, rf interchaintest.RelayerFactory) {
-
+	numFullNodes := 0
+	numValidators := 1
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
-		{Name: "dymension", Version: "latest", ChainConfig: ibc.ChainConfig{
-			Type:           "cosmos",
-			ChainID:        "froopyland_100-1",
-			Images:         []ibc.DockerImage{{Repository: "dymension"}},
-			Bin:            "dymd",
-			Bech32Prefix:   "dym",
-			Denom:          "udym",
-			CoinType:       "60",
-			GasPrices:      "0udym",
-			GasAdjustment:  0,
-			TrustingPeriod: "168h0m0s",
-		}},
-		{Name: "osmosis", Version: "v7.2.0", ChainConfig: ibc.ChainConfig{ChainID: "osmosis-1001"}},
+		{Name: "dymension", Version: "latest", NumFullNodes: &numFullNodes, NumValidators: &numValidators,
+			ChainConfig: ibc.ChainConfig{
+				Type:           "cosmos",
+				ChainID:        "dymension_100-1",
+				Images:         []ibc.DockerImage{{Repository: "dymension", UidGid: "1025:1025"}},
+				Bin:            "dymd",
+				Bech32Prefix:   "dym",
+				Denom:          "udym",
+				GasPrices:      "0udym",
+				GasAdjustment:  0,
+				TrustingPeriod: "168h0m0s",
+				SkipGenTx:      false,
+			}},
+		{Name: "osmosis", Version: "v7.2.0", ChainConfig: ibc.ChainConfig{ChainID: "osmosis-1001"},
+			NumFullNodes: &numFullNodes, NumValidators: &numValidators},
 	})
 	conformance.Test(
 		t,
