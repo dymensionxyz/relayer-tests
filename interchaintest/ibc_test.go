@@ -2,6 +2,7 @@ package interchaintest_test
 
 import (
 	"context"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"testing"
 
 	relayerinterchaintest "github.com/cosmos/relayer/v2/interchaintest"
@@ -36,7 +37,11 @@ func interchaintestConformance(t *testing.T, rf interchaintest.RelayerFactory) {
 				GasPrices:      "0udym",
 				GasAdjustment:  0,
 				TrustingPeriod: "168h0m0s",
-				ModifyGenesisAmounts: }},
+				ModifyGenesisAmounts: func() (sdk.Coin, sdk.Coin) {
+					return sdk.NewInt64Coin("udym", 1_000_000_000000000000000000),
+						sdk.NewInt64Coin("udym", 500_000_000000000000000000)
+				},
+			}},
 		{Name: "osmosis", Version: "v7.2.0", ChainConfig: ibc.ChainConfig{ChainID: "osmosis-1001"},
 			NumFullNodes: &numFullNodes, NumValidators: &numValidators},
 	})
