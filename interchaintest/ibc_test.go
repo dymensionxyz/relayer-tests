@@ -36,8 +36,7 @@ func interchaintestConformance(t *testing.T, rf interchaintest.RelayerFactory) {
 				GasPrices:      "0udym",
 				GasAdjustment:  0,
 				TrustingPeriod: "168h0m0s",
-				SkipGenTx:      false,
-			}},
+				ModifyGenesisAmounts: }},
 		{Name: "osmosis", Version: "v7.2.0", ChainConfig: ibc.ChainConfig{ChainID: "osmosis-1001"},
 			NumFullNodes: &numFullNodes, NumValidators: &numValidators},
 	})
